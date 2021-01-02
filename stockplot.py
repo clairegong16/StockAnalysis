@@ -1,4 +1,5 @@
-# Import the yfinance. If you get module not found error the run !pip install yfinance from your Jupyter notebook
+# this code is checked in as StockAnalysis under the url https://github.com/clairegong16/StockAnalysis.git
+
 import yfinance as yf
 # Import the plotting library
 import matplotlib.pyplot as plt
@@ -24,31 +25,10 @@ plt.show() #shows the graph to the user
 
 stockslist = ['AAPL', 'AMZN', 'GOOGL', 'WMT', 'IBM', 'MSFT']
 
-# Fetch the data
-date1 = '2000-01-01'
-date2 = '2020-12-01'
-data = yf.download(stockslist, date1, date2)
-'''data['Adj Close'].plot()
-plt.show()'''
-# Print first 5 rows of the data
-#print(data.head(5))
 
 
-#print("data mean:\n", data.mean(axis=0))
 
 
-#for finding difference between beginning and end. 
-
-for company in stockslist:
-    print(company)  
-    datas = yf.download(company, date1, date2)  #gets the data of the company between the given dates.
-    print("datas:\n", datas)  
-    pd.set_option('display.max_rows', len(datas))  #this is here to get all of the data shown in the text file. 
-
-    #the following section is to put the data into a text file:
-    with open(company + '.stock.txt', 'w') as stocks: 
-        print(datas, file=stocks)
-    pd.reset_option('display.max_rows') #reset the length 
 
 # returns the y list given the year and month 
 def dates_to_value_list(company, year, month):
@@ -101,6 +81,7 @@ def plotm_and_b(m,b,ylist, company, year, month, plot):
 jan = dates_to_value_list('2019-01-02', '2019-01-31', 'MSFT')'''
 
 def main(stocklist, d_begdate): #, d_enddate, j_begdate, j_enddate):
+    generatestockfile(stocklist)
     yearlist = findingyears(d_begdate, 10)
     markerlist = ['o', '.', 'x', '+', 'v', '^', '<', '>', 's', 'd']
     colorlist = ['b', 'g', 'r', 'c', 'm', 'y', 'k', 'w']
@@ -146,6 +127,28 @@ def findingyears(d_begdate, yearnumber):
         yearlist.append(startdec)
         startdec = startdec + 1
     return yearlist
+
+#for finding difference between beginning and end. 
+def generatestockfile(stockslist): 
+    # Fetch the data
+    date1 = '2000-01-01'
+    date2 = '2020-12-01'
+    data = yf.download(stockslist, date1, date2)
+    '''data['Adj Close'].plot()
+    plt.show()'''
+    # Print first 5 rows of the data
+    #print(data.head(5))
+
+    for company in stockslist:
+        print(company)  
+        datas = yf.download(company, date1, date2)  #gets the data of the company between the given dates.
+        print("datas:\n", datas)  
+        pd.set_option('display.max_rows', len(datas))  #this is here to get all of the data shown in the text file. 
+
+        #the following section is to put the data into a text file:
+        with open('rawdata/' + company + '.stock.txt', 'w') as stocks: 
+            print(datas, file=stocks)
+        pd.reset_option('display.max_rows') #reset the length 
 
 main(stockslist,'2019-12')  
 

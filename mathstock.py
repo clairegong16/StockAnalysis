@@ -58,6 +58,7 @@ def calcm_and_b(ylist, name):
 
 
 if __name__ == "__main__": #doesn't run below code if you run from a different file 
+#the below code is only used to test if this specific module works. 
 #generation of testing data
     m = 0.1
     b = 5
