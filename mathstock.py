@@ -80,3 +80,4 @@ if __name__ == "__main__": #doesn't run below code if you run from a different f
     print("calc m:", calcm(yhatlist))
     print("calc b:", calcb(yhatlist))
 
+#thank you for looking at this code! 
